@@ -1,7 +1,7 @@
 # QR Payment (PL)
 
 [![Latest Stable Version](http://img.shields.io/packagist/v/ion-bazan/pl-qr-payment.svg)](https://packagist.org/packages/ion-bazan/pl-qr-payment)
-[![Build Status](http://img.shields.io/travis/IonBazan/pl-qr-payment.svg)](http://travis-ci.org/IonBazan/pl-qr-payment)
+[![Build Status](http://img.shields.io/travis/com/IonBazan/pl-qr-payment.svg)](http://travis-ci.com/IonBazan/pl-qr-payment)
 [![Total Downloads](http://img.shields.io/packagist/dt/ion-bazan/pl-qr-payment.svg)](https://packagist.org/packages/ion-bazan/pl-qr-payment)
 [![Monthly Downloads](http://img.shields.io/packagist/dm/ion-bazan/pl-qr-payment.svg)](https://packagist.org/packages/ion-bazan/pl-qr-payment)
 [![License](http://img.shields.io/packagist/l/ion-bazan/pl-qr-payment.svg)](https://packagist.org/packages/ion-bazan/pl-qr-payment)
