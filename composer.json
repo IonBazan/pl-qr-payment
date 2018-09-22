@@ -1,0 +1,29 @@
+{
+    "name": "ion-bazan/pl-qr-payment",
+    "type": "library",
+    "description": "This library helps you generate payment QR codes for Polish bank mobile applications",
+    "keywords": ["qr", "payment", "polish", "poland", "bank", "wire", "transfer", "invoice", "faktura", "przelew", "kod"],
+    "authors": [
+        {
+            "name": "Ion Bazan",
+            "email": "ion.bazan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.3",
+        "endroid/qr-code": "^3.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { "IonBazan\\PaymentQR\\Poland\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "IonBazan\\PaymentQR\\Poland\\Tests\\": "tests/" }
+    },
+    "suggest": {
+        "endroid/qr-code": "Allows generating QR code images"
+    }
+}
