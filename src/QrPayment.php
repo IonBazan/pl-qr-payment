@@ -125,23 +125,9 @@ class QrPayment
         return $this->nip;
     }
 
-    public function setNip(?string $nip): QrPayment
-    {
-        $this->nip = $nip;
-
-        return $this;
-    }
-
     public function getCountry(): string
     {
         return $this->country;
-    }
-
-    public function setCountry(string $country): QrPayment
-    {
-        $this->country = $country;
-
-        return $this;
     }
 
     public function getAccountNumber(): string
@@ -149,23 +135,9 @@ class QrPayment
         return $this->accountNumber;
     }
 
-    public function setAccountNumber(string $accountNumber): QrPayment
-    {
-        $this->accountNumber = $accountNumber;
-
-        return $this;
-    }
-
     public function getAmount(): int
     {
         return $this->amount;
-    }
-
-    public function setAmount(int $amount): QrPayment
-    {
-        $this->amount = $amount;
-
-        return $this;
     }
 
     public function getRecipient(): string
@@ -173,23 +145,9 @@ class QrPayment
         return $this->recipient;
     }
 
-    public function setRecipient(string $recipient): QrPayment
-    {
-        $this->recipient = $recipient;
-
-        return $this;
-    }
-
     public function getTitle(): string
     {
         return $this->title;
-    }
-
-    public function setTitle(string $title): QrPayment
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function getDirectDebitId(): ?string
@@ -197,35 +155,14 @@ class QrPayment
         return $this->directDebitId;
     }
 
-    public function setDirectDebitId(?string $directDebitId): QrPayment
-    {
-        $this->directDebitId = $directDebitId;
-
-        return $this;
-    }
-
     public function getInvoobillId(): ?string
     {
         return $this->invoobillId;
     }
 
-    public function setInvoobillId(?string $invoobillId): QrPayment
-    {
-        $this->invoobillId = $invoobillId;
-
-        return $this;
-    }
-
     public function getReserved(): ?string
     {
         return $this->reserved;
-    }
-
-    public function setReserved(?string $reserved): QrPayment
-    {
-        $this->reserved = $reserved;
-
-        return $this;
     }
 
     protected function filterVar(?string $variable, int $length = 0): ?string

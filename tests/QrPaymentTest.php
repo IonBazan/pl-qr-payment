@@ -17,11 +17,22 @@ class QrPaymentTest extends TestCase
             '5214349636',
             'PL',
             '11223344',
-            '990066'
+            '990066',
+            'reserved'
         );
 
+        $this->assertSame('4249000050026313017364142', $payment->getAccountNumber());
+        $this->assertSame('Testowy odbiorca', $payment->getRecipient());
+        $this->assertSame('Tytuł płatności', $payment->getTitle());
+        $this->assertSame(12345, $payment->getAmount());
+        $this->assertSame('5214349636', $payment->getNip());
+        $this->assertSame('PL', $payment->getCountry());
+        $this->assertSame('11223344', $payment->getDirectDebitId());
+        $this->assertSame('990066', $payment->getInvoobillId());
+        $this->assertSame('reserved', $payment->getReserved());
+
         $this->assertSame(
-            '5214349636|PL|4249000050026313017364142|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|',
+            '5214349636|PL|4249000050026313017364142|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|reserved',
             $payment->getQrString()
         );
     }
