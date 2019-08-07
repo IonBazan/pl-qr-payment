@@ -72,7 +72,7 @@ class QrPaymentTest extends TestCase
         );
 
         $this->assertSame(250, $qrCode->getSize());
-        $this->assertSame(ErrorCorrectionLevel::LOW, $qrCode->getErrorCorrectionLevel());
+        $this->assertEquals(ErrorCorrectionLevel::LOW, $qrCode->getErrorCorrectionLevel());
         $this->assertSame('UTF-8', $qrCode->getEncoding());
     }
 

@@ -15,7 +15,10 @@ matrix:
     - php: nightly
 
 install:
-- composer update --no-interaction --prefer-dist $COMPOSER_FLAGS
+  - composer update --no-interaction --prefer-dist $COMPOSER_FLAGS
 
 script:
   - vendor/bin/phpunit
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
