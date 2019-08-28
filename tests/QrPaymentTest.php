@@ -8,7 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class QrPaymentTest extends TestCase
 {
-    public function testItGeneratesValidQrStringForExampleInput() {
+    public function testItGeneratesValidQrStringForExampleInput(): void
+    {
         $payment = new QrPayment(
             '4249000050026313017364142',
             'Testowy odbiorca',
@@ -43,7 +44,7 @@ class QrPaymentTest extends TestCase
      * @param string    $expectedResult
      * @param QrPayment $paymentQr
      */
-    public function testItGeneratesValidQrString(string $expectedResult, QrPayment $paymentQr)
+    public function testItGeneratesValidQrString(string $expectedResult, QrPayment $paymentQr): void
     {
         $this->assertSame($expectedResult, $paymentQr->getQrString());
         $this->assertEquals($paymentQr, QrPayment::fromQrString($expectedResult));
@@ -55,14 +56,17 @@ class QrPaymentTest extends TestCase
      * @param string    $inputString
      * @param QrPayment $expectedPayment
      */
-    public function testItCreatesValidObjectFromString(string $inputString, QrPayment $expectedPayment)
+    public function testItCreatesValidObjectFromString(string $inputString, QrPayment $expectedPayment): void
     {
         $payment = QrPayment::fromQrString($inputString);
         $this->assertEquals($expectedPayment, $payment);
         $this->assertSame($inputString, $payment->getQrString());
     }
 
-    public function testItGeneratesQrImage()
+    /**
+     * @runInSeparateProcess
+     */
+    public function testItGeneratesQrImage(): void
     {
         $payment = new QrPayment(
             '4249000050026313017364142',
@@ -87,7 +91,33 @@ class QrPaymentTest extends TestCase
         $this->assertSame('UTF-8', $qrCode->getEncoding());
     }
 
-    public function testItStripsInvalidCharactersAndTrims()
+    public function testItThrowsExceptionWhenEndroidIsNotInstalled(): void
+    {
+        $autoloaders = spl_autoload_functions();
+        $this->expectException(\RuntimeException::class);
+        $payment = new QrPayment(
+            '4249000050026313017364142',
+            'Testowy odbiorca',
+            'Tytuł płatności',
+            12345,
+            '5214349636',
+            'PL',
+            '11223344',
+            '990066'
+        );
+
+        array_map('spl_autoload_unregister', $autoloaders);
+
+        try {
+            $payment->getQrCode();
+        } catch (\Throwable $exception) {
+            throw $exception;
+        } finally {
+            array_map('spl_autoload_register', $autoloaders);
+        }
+    }
+
+    public function testItStripsInvalidCharactersAndTrims(): void
     {
         $payment = new QrPayment(
             '|%()4249000050026313017364142',
