@@ -8,6 +8,7 @@ use RuntimeException;
 class QrPayment
 {
     const DELIMITER = '|';
+
     const DISALLOWED_CHARS = '/([^A-Za-z0-9 ,\.\/\\\\\-@#&\*\/¹æê³ñóœŸ¿¥ÆÊ£ÑŹÓŒąćęłńóśźżĄĆĘŁŃŚŻ¯_])/u';
 
     /** @var string|null */
@@ -70,7 +71,7 @@ class QrPayment
         $this->reserved = $reserved;
     }
 
-    public static function fromQrString(string $qrString): QrPayment
+    public static function fromQrString(string $qrString): self
     {
         $parts = explode(self::DELIMITER, $qrString);
 
