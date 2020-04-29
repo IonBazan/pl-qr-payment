@@ -53,7 +53,7 @@ class QrPayment
         string $accountNumber,
         string $recipient,
         string $title,
-        int $amount = 0,
+        int $amount,
         ?string $nip = null,
         string $country = 'PL',
         ?string $directDebitId = null,
@@ -103,8 +103,6 @@ class QrPayment
             $this->filterVar($this->invoobillId, 12),
             $this->filterVar($this->reserved, 24 - strlen($amount) + 6),
         ];
-
-        $parts = array_map('trim', $parts);
 
         return implode(self::DELIMITER, $parts);
     }
@@ -166,9 +164,9 @@ class QrPayment
         return $this->reserved;
     }
 
-    protected function filterVar(?string $variable, int $length = 0): ?string
+    private function filterVar(?string $variable, int $length): ?string
     {
-        $variable = preg_replace(self::DISALLOWED_CHARS, '', $variable);
+        $variable = trim(preg_replace(self::DISALLOWED_CHARS, '', $variable));
 
         return substr($variable, 0, $length);
     }

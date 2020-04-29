@@ -1,6 +1,6 @@
 <?php
 
-namespace IonBazan\QrPayment\Poland\Tests;
+namespace IonBazan\PaymentQR\Poland\Tests;
 
 use Endroid\QrCode\ErrorCorrectionLevel;
 use IonBazan\PaymentQR\Poland\QrPayment;
@@ -11,7 +11,7 @@ class QrPaymentTest extends TestCase
     public function testItGeneratesValidQrStringForExampleInput(): void
     {
         $payment = new QrPayment(
-            '4249000050026313017364142',
+            '24160000035175530643314956',
             'Testowy odbiorca',
             'Tytuł płatności',
             12345,
@@ -22,7 +22,7 @@ class QrPaymentTest extends TestCase
             'reserved'
         );
 
-        $this->assertSame('4249000050026313017364142', $payment->getAccountNumber());
+        $this->assertSame('24160000035175530643314956', $payment->getAccountNumber());
         $this->assertSame('Testowy odbiorca', $payment->getRecipient());
         $this->assertSame('Tytuł płatności', $payment->getTitle());
         $this->assertSame(12345, $payment->getAmount());
@@ -33,7 +33,7 @@ class QrPaymentTest extends TestCase
         $this->assertSame('reserved', $payment->getReserved());
 
         $this->assertSame(
-            '5214349636|PL|4249000050026313017364142|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|reserved',
+            '5214349636|PL|24160000035175530643314956|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|reserved',
             $payment->getQrString()
         );
     }
@@ -69,7 +69,7 @@ class QrPaymentTest extends TestCase
     public function testItGeneratesQrImage(): void
     {
         $payment = new QrPayment(
-            '4249000050026313017364142',
+            '24160000035175530643314956',
             'Testowy odbiorca',
             'Tytuł płatności',
             12345,
@@ -82,7 +82,7 @@ class QrPaymentTest extends TestCase
         $qrCode = $payment->getQrCode();
 
         $this->assertSame(
-            '5214349636|PL|4249000050026313017364142|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|',
+            '5214349636|PL|24160000035175530643314956|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|',
             $qrCode->getText()
         );
 
@@ -96,7 +96,7 @@ class QrPaymentTest extends TestCase
         $autoloaders = spl_autoload_functions();
         $this->expectException(\RuntimeException::class);
         $payment = new QrPayment(
-            '4249000050026313017364142',
+            '24160000035175530643314956',
             'Testowy odbiorca',
             'Tytuł płatności',
             12345,
@@ -120,19 +120,19 @@ class QrPaymentTest extends TestCase
     public function testItStripsInvalidCharactersAndTrims(): void
     {
         $payment = new QrPayment(
-            '|%()4249000050026313017364142',
-            '|%()Testowy odbiorca',
-            '|%()Tytuł płatności',
+            '|%()24160000035175530643314956_123456789',
+            '|%()Testowy odbiorca 123456789',
+            '|%()Tytuł płatności 01234567890123456789',
             123456789,
-            '|%()5214349636',
-            '|%()PL',
-            '|%()11223344',
-            '|%()990066',
+            '|%()5214349636_123456789',
+            '|%()PL123',
+            '|%()123456789012345678901234567890',
+            '|%() 990066990066990066',
             '123456789012345678901234'
         );
 
         $this->assertSame(
-            '5214349636|PL|4249000050026313017364142|123456789|Testowy odbiorca|Tytuł płatności|11223344|990066|123456789012345678901',
+            '5214349636|PL|24160000035175530643314956|123456789|Testowy odbiorca 123|Tytuł płatności 0123456789012|12345678901234567890|990066990066|123456789012345678901',
             $payment->getQrString()
         );
     }
@@ -167,6 +167,20 @@ class QrPaymentTest extends TestCase
                     'Odbiorca 1',
                     'Przelew ekspress',
                     1200
+                ),
+            ],
+            'Full example' => [
+                '5214349636|PL|4249000050026313017364142|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|reserved',
+                new QrPayment(
+                    '4249000050026313017364142',
+                    'Testowy odbiorca',
+                    'Tytuł płatności',
+                    12345,
+                    '5214349636',
+                    'PL',
+                    '11223344',
+                    '990066',
+                    'reserved'
                 ),
             ],
         ];
