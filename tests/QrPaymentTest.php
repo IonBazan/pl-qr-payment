@@ -83,7 +83,7 @@ class QrPaymentTest extends TestCase
 
         $this->assertSame(
             '5214349636|PL|24160000035175530643314956|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|',
-            $qrCode->getText()
+            method_exists($qrCode, 'getText') ? $qrCode->getText() : $qrCode->getData()
         );
 
         $this->assertSame(250, $qrCode->getSize());
