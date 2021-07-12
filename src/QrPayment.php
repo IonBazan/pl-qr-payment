@@ -43,11 +43,11 @@ class QrPayment
      * @param string      $recipient     Recipient name (max 20 characters)
      * @param string      $title         Transfer title (max 32 characters)
      * @param int         $amount        Amount as integer (in gr) - can be 0
-     * @param null|string $nip           Recipient NIP (10 characters)
+     * @param string|null $nip           Recipient NIP (10 characters)
      * @param string      $country       Country code - the only supported is 'PL' (2 characters)
-     * @param null|string $directDebitId Customer ID for Direct Debit (max 20 characters)
-     * @param null|string $invoobillId   Invoobill ID (max 12 characters)
-     * @param null|string $reserved      Reserved (max 24 characters)
+     * @param string|null $directDebitId Customer ID for Direct Debit (max 20 characters)
+     * @param string|null $invoobillId   Invoobill ID (max 12 characters)
+     * @param string|null $reserved      Reserved (max 24 characters)
      */
     public function __construct(
         string $accountNumber,

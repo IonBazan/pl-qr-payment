@@ -40,9 +40,6 @@ class QrPaymentTest extends TestCase
 
     /**
      * @dataProvider documentationExamplesProvider
-     *
-     * @param string    $expectedResult
-     * @param QrPayment $paymentQr
      */
     public function testItGeneratesValidQrString(string $expectedResult, QrPayment $paymentQr): void
     {
@@ -52,9 +49,6 @@ class QrPaymentTest extends TestCase
 
     /**
      * @dataProvider documentationExamplesProvider
-     *
-     * @param string    $inputString
-     * @param QrPayment $expectedPayment
      */
     public function testItCreatesValidObjectFromString(string $inputString, QrPayment $expectedPayment): void
     {
@@ -85,10 +79,11 @@ class QrPaymentTest extends TestCase
             '5214349636|PL|24160000035175530643314956|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|',
             method_exists($qrCode, 'getText') ? $qrCode->getText() : $qrCode->getData()
         );
+        $correctionLevel = class_exists(ErrorCorrectionLevel::class) ? ErrorCorrectionLevel::LOW : new ErrorCorrectionLevel\ErrorCorrectionLevelLow();
 
         $this->assertSame(250, $qrCode->getSize());
-        $this->assertEquals(ErrorCorrectionLevel::LOW, $qrCode->getErrorCorrectionLevel());
-        $this->assertSame('UTF-8', $qrCode->getEncoding());
+        $this->assertEquals($correctionLevel, $qrCode->getErrorCorrectionLevel());
+        $this->assertSame('UTF-8', (string) $qrCode->getEncoding());
     }
 
     public function testItThrowsExceptionWhenEndroidIsNotInstalled(): void
