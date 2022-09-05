@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IonBazan\PaymentQR\Poland\Tests;
 
 use Endroid\QrCode\ErrorCorrectionLevel;

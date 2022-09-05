@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IonBazan\PaymentQR\Poland;
 
 use Endroid\QrCode\QrCode;
@@ -7,9 +9,9 @@ use RuntimeException;
 
 class QrPayment
 {
-    const DELIMITER = '|';
+    public const DELIMITER = '|';
 
-    const DISALLOWED_CHARS = '/([^A-Za-z0-9 ,\.\/\\\\\-@#&\*\/¹æê³ñóœŸ¿¥ÆÊ£ÑŹÓŒąćęłńóśźżĄĆĘŁŃŚŻ¯_])/u';
+    public const DISALLOWED_CHARS = '/([^A-Za-z0-9 ,\.\/\\\\\-@#&\*\/¹æê³ñóœŸ¿¥ÆÊ£ÑŹÓŒąćęłńóśźżĄĆĘŁŃŚŻ¯_])/u';
 
     /** @var string|null */
     protected $nip;
@@ -79,7 +81,7 @@ class QrPayment
             $parts[2],
             $parts[4],
             $parts[5],
-            (int) ltrim($parts[3], '0'),
+            (int) $parts[3],
             $parts[0],
             $parts[1],
             $parts[6],
@@ -166,7 +168,7 @@ class QrPayment
 
     private function filterVar(?string $variable, int $length): ?string
     {
-        $variable = trim(preg_replace(self::DISALLOWED_CHARS, '', $variable));
+        $variable = trim(preg_replace(self::DISALLOWED_CHARS, '', (string) $variable));
 
         return substr($variable, 0, $length);
     }
