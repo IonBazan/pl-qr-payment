@@ -10,35 +10,7 @@ use RuntimeException;
 class QrPayment
 {
     public const DELIMITER = '|';
-
     public const DISALLOWED_CHARS = '/([^A-Za-z0-9 ,\.\/\\\\\-@#&\*\/¹æê³ñóœŸ¿¥ÆÊ£ÑŹÓŒąćęłńóśźżĄĆĘŁŃŚŻ¯_])/u';
-
-    /** @var string|null */
-    protected $nip;
-
-    /** @var string */
-    protected $country;
-
-    /** @var string */
-    protected $accountNumber;
-
-    /** @var int */
-    protected $amount;
-
-    /** @var string */
-    protected $recipient;
-
-    /** @var string */
-    protected $title;
-
-    /** @var string|null */
-    protected $directDebitId;
-
-    /** @var string|null */
-    protected $invoobillId;
-
-    /** @var string|null */
-    protected $reserved;
 
     /**
      * @param string      $accountNumber Account number (26 digits)
@@ -52,25 +24,16 @@ class QrPayment
      * @param string|null $reserved      Reserved (max 24 characters)
      */
     public function __construct(
-        string $accountNumber,
-        string $recipient,
-        string $title,
-        int $amount,
-        ?string $nip = null,
-        string $country = 'PL',
-        ?string $directDebitId = null,
-        ?string $invoobillId = null,
-        ?string $reserved = null
+        public readonly string $accountNumber,
+        public readonly string $recipient,
+        public readonly string $title,
+        public readonly int $amount,
+        public readonly ?string $nip = null,
+        public readonly string $country = 'PL',
+        public readonly ?string $directDebitId = null,
+        public readonly ?string $invoobillId = null,
+        public readonly ?string $reserved = null
     ) {
-        $this->accountNumber = $accountNumber;
-        $this->recipient = $recipient;
-        $this->title = $title;
-        $this->amount = $amount;
-        $this->nip = $nip;
-        $this->country = $country;
-        $this->directDebitId = $directDebitId;
-        $this->invoobillId = $invoobillId;
-        $this->reserved = $reserved;
     }
 
     public static function fromQrString(string $qrString): self
@@ -121,55 +84,8 @@ class QrPayment
         return $qrCode;
     }
 
-    public function getNip(): ?string
-    {
-        return $this->nip;
-    }
-
-    public function getCountry(): string
-    {
-        return $this->country;
-    }
-
-    public function getAccountNumber(): string
-    {
-        return $this->accountNumber;
-    }
-
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
-
-    public function getRecipient(): string
-    {
-        return $this->recipient;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function getDirectDebitId(): ?string
-    {
-        return $this->directDebitId;
-    }
-
-    public function getInvoobillId(): ?string
-    {
-        return $this->invoobillId;
-    }
-
-    public function getReserved(): ?string
-    {
-        return $this->reserved;
-    }
-
     private function filterVar(?string $variable, int $length): ?string
     {
-        $variable = trim(preg_replace(self::DISALLOWED_CHARS, '', (string) $variable));
-
-        return substr($variable, 0, $length);
+        return substr(trim(preg_replace(self::DISALLOWED_CHARS, '', (string) $variable)), 0, $length);
     }
 }

@@ -24,15 +24,15 @@ class QrPaymentTest extends TestCase
             'reserved'
         );
 
-        $this->assertSame('24160000035175530643314956', $payment->getAccountNumber());
-        $this->assertSame('Testowy odbiorca', $payment->getRecipient());
-        $this->assertSame('Tytuł płatności', $payment->getTitle());
-        $this->assertSame(12345, $payment->getAmount());
-        $this->assertSame('5214349636', $payment->getNip());
-        $this->assertSame('PL', $payment->getCountry());
-        $this->assertSame('11223344', $payment->getDirectDebitId());
-        $this->assertSame('990066', $payment->getInvoobillId());
-        $this->assertSame('reserved', $payment->getReserved());
+        $this->assertSame('24160000035175530643314956', $payment->accountNumber);
+        $this->assertSame('Testowy odbiorca', $payment->recipient);
+        $this->assertSame('Tytuł płatności', $payment->title);
+        $this->assertSame(12345, $payment->amount);
+        $this->assertSame('5214349636', $payment->nip);
+        $this->assertSame('PL', $payment->country);
+        $this->assertSame('11223344', $payment->directDebitId);
+        $this->assertSame('990066', $payment->invoobillId);
+        $this->assertSame('reserved', $payment->reserved);
 
         $this->assertSame(
             '5214349636|PL|24160000035175530643314956|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|reserved',
@@ -79,9 +79,9 @@ class QrPaymentTest extends TestCase
 
         $this->assertSame(
             '5214349636|PL|24160000035175530643314956|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|',
-            method_exists($qrCode, 'getText') ? $qrCode->getText() : $qrCode->getData()
+            $qrCode->getData()
         );
-        $correctionLevel = class_exists(ErrorCorrectionLevel::class) ? ErrorCorrectionLevel::LOW : new ErrorCorrectionLevel\ErrorCorrectionLevelLow();
+        $correctionLevel = new ErrorCorrectionLevel\ErrorCorrectionLevelLow();
 
         $this->assertSame(250, $qrCode->getSize());
         $this->assertEquals($correctionLevel, $qrCode->getErrorCorrectionLevel());
