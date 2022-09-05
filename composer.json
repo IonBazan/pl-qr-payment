@@ -26,5 +26,11 @@
     },
     "suggest": {
         "endroid/qr-code": "Allows generating QR code images"
+    },
+    "config": {
+        "allow-plugins": {
+            "endroid/installer": true,
+            "infection/extension-installer": true
+        }
     }
 }
