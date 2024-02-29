@@ -13,9 +13,9 @@
         "php": "^8.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5",
-        "endroid/qr-code": "^4.0",
-        "infection/infection": "~0.26.14"
+        "phpunit/phpunit": "^10",
+        "endroid/qr-code": "^4 || ^5",
+        "infection/infection": "~0.27.9"
     },
     "license": "MIT",
     "autoload": {
@@ -25,7 +25,7 @@
         "psr-4": { "IonBazan\\PaymentQR\\Poland\\Tests\\": "tests/" }
     },
     "suggest": {
-        "endroid/qr-code": "Allows generating QR code images"
+        "endroid/qr-code": "^4 | ^5 Allows generating QR code images"
     },
     "config": {
         "allow-plugins": {

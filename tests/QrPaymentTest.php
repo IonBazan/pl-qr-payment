@@ -6,6 +6,8 @@ namespace IonBazan\PaymentQR\Poland\Tests;
 
 use Endroid\QrCode\ErrorCorrectionLevel;
 use IonBazan\PaymentQR\Poland\QrPayment;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
 class QrPaymentTest extends TestCase
@@ -40,18 +42,14 @@ class QrPaymentTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider documentationExamplesProvider
-     */
+    #[DataProvider('documentationExamplesProvider')]
     public function testItGeneratesValidQrString(string $expectedResult, QrPayment $paymentQr): void
     {
         $this->assertSame($expectedResult, $paymentQr->getQrString());
         $this->assertEquals($paymentQr, QrPayment::fromQrString($expectedResult));
     }
 
-    /**
-     * @dataProvider documentationExamplesProvider
-     */
+    #[DataProvider('documentationExamplesProvider')]
     public function testItCreatesValidObjectFromString(string $inputString, QrPayment $expectedPayment): void
     {
         $payment = QrPayment::fromQrString($inputString);
@@ -59,9 +57,7 @@ class QrPaymentTest extends TestCase
         $this->assertSame($inputString, $payment->getQrString());
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testItGeneratesQrImage(): void
     {
         $payment = new QrPayment(
@@ -81,7 +77,12 @@ class QrPaymentTest extends TestCase
             '5214349636|PL|24160000035175530643314956|012345|Testowy odbiorca|Tytuł płatności|11223344|990066|',
             $qrCode->getData()
         );
-        $correctionLevel = new ErrorCorrectionLevel\ErrorCorrectionLevelLow();
+
+        if (class_exists(ErrorCorrectionLevel\ErrorCorrectionLevelLow::class)) {
+            $correctionLevel = new ErrorCorrectionLevel\ErrorCorrectionLevelLow();
+        } else {
+            $correctionLevel = ErrorCorrectionLevel::Low;
+        }
 
         $this->assertSame(250, $qrCode->getSize());
         $this->assertEquals($correctionLevel, $qrCode->getErrorCorrectionLevel());
@@ -134,7 +135,7 @@ class QrPaymentTest extends TestCase
         );
     }
 
-    public function documentationExamplesProvider(): array
+    public static function documentationExamplesProvider(): array
     {
         return [
             '2D dla Odbiorcy typ 1 z kwotą płatności bez możliwości edycji' => [

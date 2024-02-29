@@ -3,5 +3,6 @@
 /phpunit.xml
 /clover.xml
 /.phpunit.result.cache
+/.phpunit.cache
 /infection.log
 /infection.json
