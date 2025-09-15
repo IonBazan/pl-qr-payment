@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace IonBazan\PaymentQR\Poland;
 
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\QrCode;
 use RuntimeException;
 
@@ -78,10 +80,14 @@ class QrPayment
             throw new RuntimeException('Generating QR images requires endroid/qr-code');
         }
 
-        $qrCode = new QrCode($this->getQrString());
-        $qrCode->setSize(250);
+        if (method_exists(QrCode::class, 'create')) {
+            $qrCode = QrCode::create($this->getQrString());
+            $qrCode->setSize(250);
 
-        return $qrCode;
+            return $qrCode;
+        }
+
+        return new QrCode($this->getQrString(), new Encoding('UTF-8'), ErrorCorrectionLevel::Low, 250);
     }
 
     private function filterVar(?string $variable, int $length): ?string
