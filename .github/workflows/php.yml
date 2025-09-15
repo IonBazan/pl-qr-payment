@@ -18,7 +18,7 @@ jobs:
         deps: ['highest']
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
@@ -31,8 +31,7 @@ jobs:
       - name: Run Tests
         run: vendor/bin/phpunit
       - name: Upload coverage to Codecov
-        if: ${{ matrix.php-versions == 8.3 }}
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Run mutation tests
