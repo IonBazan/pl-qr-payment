@@ -15,6 +15,7 @@ jobs:
           - '8.2'
           - '8.3'
           - '8.4'
+          - '8.5'
         deps: ['highest']
     steps:
       - name: Checkout
@@ -35,7 +36,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Run mutation tests
-        if: ${{ matrix.php-versions == 8.3 }}
+        if: ${{ matrix.php-versions == 8.4 }}
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
         run: vendor/bin/infection --ignore-msi-with-no-mutations --min-covered-msi=100 --min-msi=100 -s -j4
