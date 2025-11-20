@@ -68,7 +68,7 @@ You should already have your data valid before generating the QR code.
 
 ## Footnotes
 
-This library is a quick approach to implement so called [Rekomendacja Związku Banków Polskich dotycząca kodu dwuwymiarowego („2D”), umożliwiającego realizację polecenia przelewu oraz aktywację usług bankowych na rynku polskim - wersja 1.0](https://zbp.pl/public/repozytorium/dla_bankow/rady_i_komitety/bankowosc_elektroczniczna/rada_bankowosc_elektr/zadania/2013.12.03_-_Rekomendacja_-_Standard_2D.pdf)
+This library is a quick approach to implement so called [Rekomendacja Związku Banków Polskich dotycząca kodu dwuwymiarowego („2D”), umożliwiającego realizację polecenia przelewu oraz aktywację usług bankowych na rynku polskim - wersja 1.0](https://zbp.pl/getmedia/1d7fef90-d193-4a2d-a1c3-ffdf1b0e0649/2013-12-03_-_Rekomendacja_-_Standard_2D)
 
 According to that document, QR codes should have following parameters:
 
